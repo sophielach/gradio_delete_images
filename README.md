@@ -15,14 +15,16 @@ pip install -r requirements.txt
 import delete_images
 ```
 
-In a jupyter notebook, specify the directory containing your images and create the Gradio interface:
+In a jupyter notebook, specify the directory containing your images
 
 ```python
-# Specify your image directory
-directory_path = "/path/to/your/image_folder"
+interface = delete_images.create_interface("/path/to/image_folder")
+interface.launch()
+```
 
-# Create and launch the interface
-interface = delete_images.create_interface(directory_path)
+Launch the Gradio interface
+
+```python
 interface.launch()
 ```
 
