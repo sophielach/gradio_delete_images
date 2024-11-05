@@ -4,6 +4,9 @@ A simple Gradio-based interface for viewing and deleting images from a specified
 
 Designed for jupyter notebooks.
 
+
+![Alt text](delete_images/example_images/demo_screenshot.png)
+
 ## Installation
 
 ```bash
