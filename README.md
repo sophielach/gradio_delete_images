@@ -1,4 +1,4 @@
-# Delete Images From a Folder
+# Delete Images From a Folder via Gradio
 
 A simple Gradio-based interface for viewing and deleting images from a specified directory.
 
