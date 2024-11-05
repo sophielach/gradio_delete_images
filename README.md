@@ -1,6 +1,7 @@
-# Delete Images
+# Delete Images From a Folder
 
 A simple Gradio-based interface for viewing and deleting images from a specified directory.
+
 Designed for jupyter notebooks.
 
 ## Installation
@@ -11,12 +12,13 @@ pip install -r requirements.txt
 
 ## Usage
 
-import the module
+Import the module
+
 ```python
 import delete_images
 ```
 
-specify the directory containing your images
+Specify the directory containing your images
 
 ```python
 interface = delete_images.create_interface("/path/to/image_folder")
@@ -37,5 +39,5 @@ interface.launch()
 
 ## Customization
 
-- You can modify the `directory_path` to point to your desired folder containing images.
+- You can modify the `/path/to/image_folder` to point to your desired folder containing images.
 - The gallery is styled using custom CSS for 9:16 photos, when it is opened in a separate window.
