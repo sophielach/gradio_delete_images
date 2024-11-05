@@ -89,6 +89,6 @@ def create_interface(directory):
 
 if __name__ == "__main__":
     # Specify directory path here:
-    directory_path = "/content/my_folder_name"
+    directory_path = "example_images"
     interface = create_interface(directory_path)
     interface.launch(share=True)

@@ -1,4 +1,4 @@
-# Delete Images From a Folder via Gradio
+# Delete Images from a Folder via Gradio
 
 A simple Gradio-based interface for viewing and deleting images from a specified directory.
 
@@ -24,7 +24,7 @@ import delete_images
 Specify the directory containing your images
 
 ```python
-interface = delete_images.create_interface("/path/to/image_folder")
+interface = delete_images.create_interface("example_images")
 ```
 
 Launch the Gradio interface
@@ -42,5 +42,5 @@ interface.launch()
 
 ## Customization
 
-- You can modify the `/path/to/image_folder` to point to your desired folder containing images.
-- The gallery is styled using custom CSS for 9:16 photos, when it is opened in a separate window.
+- You can modify the `example_images` parameter to point to your desired folder containing images.
+- The gallery is styled specifically for 9:16 photos.
