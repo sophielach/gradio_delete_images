@@ -11,15 +11,15 @@ pip install -r requirements.txt
 
 ## Usage
 
+import the module
 ```python
 import delete_images
 ```
 
-In a jupyter notebook, specify the directory containing your images
+specify the directory containing your images
 
 ```python
 interface = delete_images.create_interface("/path/to/image_folder")
-interface.launch()
 ```
 
 Launch the Gradio interface
@@ -38,4 +38,4 @@ interface.launch()
 ## Customization
 
 - You can modify the `directory_path` to point to your desired folder containing images.
-- The gallery is styled using custom CSS for 9:16 photos, when openedin a separate window.
+- The gallery is styled using custom CSS for 9:16 photos, when it is opened in a separate window.
