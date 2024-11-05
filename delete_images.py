@@ -1,12 +1,12 @@
 import os
 import gradio as gr
 
-# get a list of image file paths
+# Function to get a sorted list of image file paths
 def get_image_paths(directory):
     image_files = [f for f in os.listdir(directory) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))]
     return sorted([os.path.join(directory, f) for f in image_files])
 
-# handle image deletion
+# Handle image deletion
 def delete_image(index, directory):
     try:
         # Get the updated list of images
@@ -25,8 +25,7 @@ def delete_image(index, directory):
     except Exception as e:
         return f"Error: {str(e)}", get_image_paths(directory)
 
-
-# create the Gradio interface
+# Create the Gradio interface
 def create_interface(directory):
     # Custom CSS for styling the gallery images
     custom_css = """
@@ -71,7 +70,8 @@ def create_interface(directory):
         def on_select(evt: gr.SelectData):
             # Correctly get the index from the event data
             index = evt.index
-            return delete_image(index, directory)
+            message, new_images = delete_image(index, directory)
+            return message, new_images
         
         gallery.select(
             fn=on_select,
