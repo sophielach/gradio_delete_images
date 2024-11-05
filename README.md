@@ -1,6 +1,7 @@
 # Delete Images
 
-A simple Gradio-based interface for viewing and deleting images from a specified directory in jupyter notebooks.
+A simple Gradio-based interface for viewing and deleting images from a specified directory.
+Designed for jupyter notebooks.
 
 ## Installation
 
@@ -14,9 +15,7 @@ pip install -r requirements.txt
 import delete_images
 ```
 
-### Create and Launch the Interface
-
-To use the image deletion interface, specify the directory containing your images and create the Gradio interface:
+In a jupyter notebook, specify the directory containing your images and create the Gradio interface:
 
 ```python
 # Specify your image directory

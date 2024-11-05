@@ -1,4 +1,3 @@
-# image_gallery.py
 import os
 import gradio as gr
 
@@ -22,7 +21,7 @@ def delete_image(evt: gr.SelectData, directory):
     except Exception as e:
         return f"Error: {str(e)}", gallery_images
 
-# Function to create the Gradio interface
+# create the Gradio interface
 def create_interface(directory):
     # Custom CSS for styling the gallery images
     custom_css = """
@@ -79,7 +78,7 @@ def create_interface(directory):
     return demo
 
 if __name__ == "__main__":
-    # Specify your directory path
+    # Specify directory path here:
     directory_path = "/content/my_folder_name"
     interface = create_interface(directory_path)
     interface.launch(share=True)
