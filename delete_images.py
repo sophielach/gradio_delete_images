@@ -1,33 +1,38 @@
 import os
 import gradio as gr
 
-# Function to get a sorted list of image file paths
 def get_image_paths(directory):
     image_files = [f for f in os.listdir(directory) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))]
     return sorted([os.path.join(directory, f) for f in image_files])
 
-# Handle image deletion
-def delete_image(index, directory):
+def delete_image(evt: gr.SelectData, directory):
     try:
-        # Get the updated list of images
         gallery_images = get_image_paths(directory)
+        index = evt.index
         
         if 0 <= index < len(gallery_images):
             file_path = gallery_images[index]
             if os.path.exists(file_path):
-                os.remove(file_path)  # Delete the selected image
-                new_images = get_image_paths(directory)  # Refresh the image list
-                return f"Deleted: {os.path.basename(file_path)}", new_images
-            else:
-                return "Error: Image not found!", gallery_images
-        else:
-            return "Error: Invalid image index!", gallery_images
+                os.remove(file_path)
+                return {
+                    status: f"Deleted: {os.path.basename(file_path)}",
+                    gallery: get_image_paths(directory),
+                }
+            return {
+                status: "Error: File not found",
+                gallery: gallery_images,
+            }
+        return {
+            status: "Error: Invalid image index",
+            gallery: gallery_images,
+        }
     except Exception as e:
-        return f"Error: {str(e)}", get_image_paths(directory)
+        return {
+            status: f"Error: {str(e)}",
+            gallery: get_image_paths(directory),
+        }
 
-# Create the Gradio interface
 def create_interface(directory):
-    # Custom CSS for styling the gallery images
     custom_css = """
     #gallery_container {
         display: flex;
@@ -36,7 +41,10 @@ def create_interface(directory):
         gap: 10px;
         padding: 20px;
     }
-    #gallery img {
+    #gallery {
+        min-height: 300px;
+    }
+    .gallery-item {
         object-fit: cover;
         aspect-ratio: 9 / 16;
         width: 150px;
@@ -44,47 +52,46 @@ def create_interface(directory):
         border-radius: 8px;
         transition: transform 0.2s;
     }
-    #gallery img:hover {
+    .gallery-item:hover {
         transform: scale(1.05);
+        cursor: pointer;
     }
     """
-    
+
     with gr.Blocks(css=custom_css) as demo:
         gr.HTML("<h2>Click on an image to delete it</h2>")
         
-        # Status message
-        status = gr.Textbox(label="Status", interactive=False)
-        
-        # Create a gallery for displaying images
-        with gr.Column(elem_id="gallery_container"):
-            gallery = gr.Gallery(
-                value=get_image_paths(directory),
-                columns=4,
-                rows=2,
-                height="auto",
-                show_label=False,
-                elem_id="gallery"
-            )
-        
-        # Handle selection event
-        def on_select(evt: gr.SelectData):
-            # Correctly get the index from the event data
-            index = evt.index
-            message, new_images = delete_image(index, directory)
-            return message, new_images
-        
+        with gr.Column():
+            status = gr.Textbox(label="Status", interactive=False)
+            
+            with gr.Column(elem_id="gallery_container"):
+                gallery = gr.Gallery(
+                    value=get_image_paths(directory),
+                    columns=4,
+                    rows=None,
+                    height="auto",
+                    show_label=False,
+                    elem_id="gallery",
+                    allow_preview=False,
+                    preview=False
+                )
+
+            refresh_btn = gr.Button("Refresh Gallery")
+
         gallery.select(
-            fn=on_select,
+            fn=lambda evt: delete_image(evt, directory),
+            inputs=None,
             outputs=[status, gallery]
         )
-        
-        # Refresh button to reload the gallery
-        refresh_btn = gr.Button("Refresh Gallery")
+
         refresh_btn.click(
-            fn=lambda: (None, get_image_paths(directory)),
+            fn=lambda: {
+                status: "Gallery refreshed",
+                gallery: get_image_paths(directory)
+            },
             outputs=[status, gallery]
         )
-    
+
     return demo
 
 if __name__ == "__main__":
