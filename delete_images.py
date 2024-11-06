@@ -56,7 +56,7 @@ def create_interface(directory):
         # Status message
         status = gr.Textbox(label="Status", interactive=False)
         
-        # Create a gallery for displaying images
+     # Create a gallery for displaying images
         with gr.Column(elem_id="gallery_container"):
             gallery = gr.Gallery(
                 value=get_image_paths(directory),
@@ -64,12 +64,12 @@ def create_interface(directory):
                 rows=2,
                 height="auto",
                 show_label=False,
-                elem_id="gallery"
+                elem_id="gallery", 
+                preview=False,
+                allow_preview=False
             )
-        
-        # Handle selection event
+
         def on_select(evt: gr.SelectData):
-            # Correctly get the index from the event data
             index = evt.index
             return delete_image(index, directory)
         
